@@ -40,15 +40,6 @@ class _HomePageState extends State<HomePage> {
         mainAxisSize: MainAxisSize.max,
         children: [
           //if (!this.isSnipeFormVisible)
-            TimelyAppbar(
-              onActionButtonPressed: () {},
-              actionButtonIconData: Icons.ac_unit,
-              actionButtonShowCaseElement:
-                  ShowCaseElement.ADD_ARTICLE_CONFIRMATION_BUTTON,
-              appbarContent: [],
-              appThemeProvider: this.widget.appThemeProvider,
-            ),
-          //if (!this.isSnipeFormVisible)
             Expanded(
               child: DefaultTabController(
                 length: 3,

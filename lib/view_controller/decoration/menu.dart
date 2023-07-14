@@ -2,11 +2,9 @@
 
 import 'dart:math';
 
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-import 'package:showcaseview/showcase.dart';
 import 'package:snipe_commander/data/providers/app_theme_provider.dart';
 import 'theme.dart';
 import 'package:snipe_commander/utils/utils.dart';
@@ -255,7 +253,6 @@ class SideDrawerMenu extends StatelessWidget{
                         leading: Icon(Icons.error_outline, color: iconColor,),
                         title: Text("Tell us about a problem", style: TextStyle(color: textColor),),
                         onTap: () {
-                          BetterFeedback.of(context).show();
                         },
                       ),
 
@@ -270,108 +267,4 @@ class SideDrawerMenu extends StatelessWidget{
     );
   }
 
-}
-
-
-class TimelyAppbar extends StatelessWidget {
-  final Function onActionButtonPressed;
-  final IconData actionButtonIconData;
-  final ShowCaseElement actionButtonShowCaseElement;
-  final List<Widget> appbarContent;
-  final AppThemeProvider appThemeProvider;
-  final bool isRootPage;
-  final Color? homeButtonColor;
-  final Color? homeButtonIconColor;
-  final double homeButtonDepth;
-  final Color? backgroundColor;
-
-  const TimelyAppbar({
-    Key? key,
-    required this.onActionButtonPressed,
-    required this.actionButtonIconData,
-    required this.actionButtonShowCaseElement,
-    required this.appbarContent,
-    required this.appThemeProvider,
-    this.isRootPage = true,
-    this.homeButtonColor,
-    this.homeButtonIconColor,
-    this.homeButtonDepth = 0.0,
-    this.backgroundColor,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(90),
-      child: Neumorphic(
-        style: NeumorphicStyle(
-          depth: 1,
-          boxShape: NeumorphicBoxShape.rect(),
-          intensity: 1.0,
-          shadowLightColor: Colors.transparent,
-          shadowLightColorEmboss: Colors.transparent,
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: this.backgroundColor ?? Provider.of<AppThemeProvider>(context).currentTheme.backgroundColor,
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                  height: 75,
-                  child: Showcase(
-                    key: (!this.isRootPage)? GlobalKey() : ShowCaseUtils().getGlobalKey(
-                        ShowCaseElement.HOME_OPTIONS_MENU),
-                    title: ShowCaseElement
-                        .HOME_OPTIONS_MENU.title,
-                    description: ShowCaseElement
-                        .HOME_OPTIONS_MENU.subtitle,
-                    showArrow: true,
-                    contentPadding: EdgeInsets.all(8.0),
-                    child: Builder(
-                      builder: (context) {
-                        return Material(
-                          color: Colors.transparent,
-                          child: IntrinsicHeight(
-                            child: Neumorphic(
-                              margin: EdgeInsets.only(top: 14.0, bottom: 14.0, left: (this.homeButtonColor == null) ? 0 :  8.0, right: (this.homeButtonColor == null) ? 0 :  8.0,),
-                              style: NeumorphicStyle(
-                                depth: this.homeButtonDepth,
-                                color: this.homeButtonColor ?? Colors.transparent,
-                                oppositeShadowLightSource: this.homeButtonDepth < 0,
-                              ),
-                              child: IconButton(
-                                  onPressed: () {
-                                    //showMagazineQuickAccessDialog(context);
-                                    if (this.isRootPage) {
-                                      Scaffold.of(context).openDrawer();
-                                    } else {
-                                      Navigator.of(context).pop();
-                                    }
-                                  },
-                                  splashColor: Colors.grey[800],
-                                  enableFeedback: true,
-                                  icon: Icon(
-                                    (this.isRootPage)? Icons.menu : Icons.arrow_back,
-                                    color: (this.homeButtonColor != null)
-                                        ? this.homeButtonIconColor ?? ColorUtils.blackOrWhiteForBackground(this.homeButtonColor!)
-                                        : this
-                                        .appThemeProvider
-                                        .currentTheme
-                                        .regularTextColor,
-                                  )),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  )),
-              Text("SNIPE COMMANDER", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),)
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

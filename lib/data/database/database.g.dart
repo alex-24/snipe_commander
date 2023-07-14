@@ -6,7 +6,7 @@ part of 'database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: type=lint
 class Token extends DataClass implements Insertable<Token> {
   final String address;
   final String? name;
@@ -132,14 +132,8 @@ class Token extends DataClass implements Insertable<Token> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(
-      address.hashCode,
-      $mrjc(
-          name.hashCode,
-          $mrjc(
-              symbol.hashCode,
-              $mrjc(decimals.hashCode,
-                  $mrjc(balance.hashCode, owner.hashCode))))));
+  int get hashCode =>
+      Object.hash(address, name, symbol, decimals, balance, owner);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -250,69 +244,57 @@ class TokenModelCompanion extends UpdateCompanion<Token> {
 
 class $TokenModelTable extends TokenModel
     with TableInfo<$TokenModelTable, Token> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TokenModelTable(this._db, [this._alias]);
+  $TokenModelTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _addressMeta = const VerificationMeta('address');
   @override
-  late final GeneratedTextColumn address = _constructAddress();
-  GeneratedTextColumn _constructAddress() {
-    return GeneratedTextColumn(
-      'address',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> address = GeneratedColumn<String?>(
+      'address', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
-  late final GeneratedTextColumn name = _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn('name', $tableName, true,
-        defaultValue: Constant(""));
-  }
-
+  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
+      'name', aliasedName, true,
+      type: const StringType(),
+      requiredDuringInsert: false,
+      defaultValue: Constant(""));
   final VerificationMeta _symbolMeta = const VerificationMeta('symbol');
   @override
-  late final GeneratedTextColumn symbol = _constructSymbol();
-  GeneratedTextColumn _constructSymbol() {
-    return GeneratedTextColumn('symbol', $tableName, true,
-        defaultValue: Constant(""));
-  }
-
+  late final GeneratedColumn<String?> symbol = GeneratedColumn<String?>(
+      'symbol', aliasedName, true,
+      type: const StringType(),
+      requiredDuringInsert: false,
+      defaultValue: Constant(""));
   final VerificationMeta _decimalsMeta = const VerificationMeta('decimals');
   @override
-  late final GeneratedTextColumn decimals = _constructDecimals();
-  GeneratedTextColumn _constructDecimals() {
-    return GeneratedTextColumn('decimals', $tableName, true,
-        defaultValue: Constant(""));
-  }
-
+  late final GeneratedColumn<String?> decimals = GeneratedColumn<String?>(
+      'decimals', aliasedName, true,
+      type: const StringType(),
+      requiredDuringInsert: false,
+      defaultValue: Constant(""));
   final VerificationMeta _balanceMeta = const VerificationMeta('balance');
   @override
-  late final GeneratedTextColumn balance = _constructBalance();
-  GeneratedTextColumn _constructBalance() {
-    return GeneratedTextColumn('balance', $tableName, true,
-        defaultValue: Constant(""));
-  }
-
+  late final GeneratedColumn<String?> balance = GeneratedColumn<String?>(
+      'balance', aliasedName, true,
+      type: const StringType(),
+      requiredDuringInsert: false,
+      defaultValue: Constant(""));
   final VerificationMeta _ownerMeta = const VerificationMeta('owner');
   @override
-  late final GeneratedTextColumn owner = _constructOwner();
-  GeneratedTextColumn _constructOwner() {
-    return GeneratedTextColumn('owner', $tableName, true,
-        defaultValue: Constant(""));
-  }
-
+  late final GeneratedColumn<String?> owner = GeneratedColumn<String?>(
+      'owner', aliasedName, true,
+      type: const StringType(),
+      requiredDuringInsert: false,
+      defaultValue: Constant(""));
   @override
   List<GeneratedColumn> get $columns =>
       [address, name, symbol, decimals, balance, owner];
   @override
-  $TokenModelTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'token_model';
   @override
-  String get $tableName => _alias ?? 'token_model';
-  @override
-  final String actualTableName = 'token_model';
+  String get actualTableName => 'token_model';
   @override
   VerificationContext validateIntegrity(Insertable<Token> instance,
       {bool isInserting = false}) {
@@ -351,13 +333,13 @@ class $TokenModelTable extends TokenModel
   Set<GeneratedColumn> get $primaryKey => {address};
   @override
   Token map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Token.fromData(data, _db,
+    return Token.fromData(data, attachedDatabase,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
   $TokenModelTable createAlias(String alias) {
-    return $TokenModelTable(_db, alias);
+    return $TokenModelTable(attachedDatabase, alias);
   }
 }
 
@@ -454,10 +436,8 @@ class Liquidity extends DataClass implements Insertable<Liquidity> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(tokenToBuyAddress.hashCode,
-          $mrjc(tokenToSpendAddress.hashCode, dateCreated.hashCode))));
+  int get hashCode =>
+      Object.hash(id, tokenToBuyAddress, tokenToSpendAddress, dateCreated);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -547,61 +527,44 @@ class LiquidityModelCompanion extends UpdateCompanion<Liquidity> {
 
 class $LiquidityModelTable extends LiquidityModel
     with TableInfo<$LiquidityModelTable, Liquidity> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $LiquidityModelTable(this._db, [this._alias]);
+  $LiquidityModelTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, true,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, true,
+      type: const IntType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _tokenToBuyAddressMeta =
       const VerificationMeta('tokenToBuyAddress');
   @override
-  late final GeneratedTextColumn tokenToBuyAddress =
-      _constructTokenToBuyAddress();
-  GeneratedTextColumn _constructTokenToBuyAddress() {
-    return GeneratedTextColumn(
-      'token_to_buy_address',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> tokenToBuyAddress =
+      GeneratedColumn<String?>('token_to_buy_address', aliasedName, false,
+          type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _tokenToSpendAddressMeta =
       const VerificationMeta('tokenToSpendAddress');
   @override
-  late final GeneratedTextColumn tokenToSpendAddress =
-      _constructTokenToSpendAddress();
-  GeneratedTextColumn _constructTokenToSpendAddress() {
-    return GeneratedTextColumn(
-      'token_to_spend_address',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> tokenToSpendAddress =
+      GeneratedColumn<String?>('token_to_spend_address', aliasedName, false,
+          type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _dateCreatedMeta =
       const VerificationMeta('dateCreated');
   @override
-  late final GeneratedDateTimeColumn dateCreated = _constructDateCreated();
-  GeneratedDateTimeColumn _constructDateCreated() {
-    return GeneratedDateTimeColumn('date_created', $tableName, true,
-        defaultValue: Constant(DateTime.now()));
-  }
-
+  late final GeneratedColumn<DateTime?> dateCreated =
+      GeneratedColumn<DateTime?>('date_created', aliasedName, true,
+          type: const IntType(),
+          requiredDuringInsert: false,
+          defaultValue: Constant(DateTime.now()));
   @override
   List<GeneratedColumn> get $columns =>
       [id, tokenToBuyAddress, tokenToSpendAddress, dateCreated];
   @override
-  $LiquidityModelTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'liquidity_model';
   @override
-  String get $tableName => _alias ?? 'liquidity_model';
-  @override
-  final String actualTableName = 'liquidity_model';
+  String get actualTableName => 'liquidity_model';
   @override
   VerificationContext validateIntegrity(Insertable<Liquidity> instance,
       {bool isInserting = false}) {
@@ -639,13 +602,13 @@ class $LiquidityModelTable extends LiquidityModel
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Liquidity map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Liquidity.fromData(data, _db,
+    return Liquidity.fromData(data, attachedDatabase,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
   $LiquidityModelTable createAlias(String alias) {
-    return $LiquidityModelTable(_db, alias);
+    return $LiquidityModelTable(attachedDatabase, alias);
   }
 }
 
@@ -887,43 +850,24 @@ class Snipe extends DataClass implements Insertable<Snipe> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          tokenToBuyId.hashCode,
-          $mrjc(
-              tokenToSpendId.hashCode,
-              $mrjc(
-                  amountToSpend.hashCode,
-                  $mrjc(
-                      amountReceived.hashCode,
-                      $mrjc(
-                          slippage.hashCode,
-                          $mrjc(
-                              gas.hashCode,
-                              $mrjc(
-                                  amountSpent.hashCode,
-                                  $mrjc(
-                                      dcaBuyTrigger.hashCode,
-                                      $mrjc(
-                                          dcaBuyTargets.hashCode,
-                                          $mrjc(
-                                              datesBought.hashCode,
-                                              $mrjc(
-                                                  amountSold.hashCode,
-                                                  $mrjc(
-                                                      dcaSellTrigger.hashCode,
-                                                      $mrjc(
-                                                          dcaSellTargets
-                                                              .hashCode,
-                                                          $mrjc(
-                                                              datesSold
-                                                                  .hashCode,
-                                                              $mrjc(
-                                                                  autoTransac
-                                                                      .hashCode,
-                                                                  snipeStatusId
-                                                                      .hashCode)))))))))))))))));
+  int get hashCode => Object.hash(
+      id,
+      tokenToBuyId,
+      tokenToSpendId,
+      amountToSpend,
+      amountReceived,
+      slippage,
+      gas,
+      amountSpent,
+      dcaBuyTrigger,
+      dcaBuyTargets,
+      datesBought,
+      amountSold,
+      dcaSellTrigger,
+      dcaSellTargets,
+      datesSold,
+      autoTransac,
+      snipeStatusId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1179,205 +1123,115 @@ class SnipeModelCompanion extends UpdateCompanion<Snipe> {
 
 class $SnipeModelTable extends SnipeModel
     with TableInfo<$SnipeModelTable, Snipe> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $SnipeModelTable(this._db, [this._alias]);
+  $SnipeModelTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      type: const IntType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _tokenToBuyIdMeta =
       const VerificationMeta('tokenToBuyId');
   @override
-  late final GeneratedTextColumn tokenToBuyId = _constructTokenToBuyId();
-  GeneratedTextColumn _constructTokenToBuyId() {
-    return GeneratedTextColumn(
-      'token_to_buy_id',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> tokenToBuyId = GeneratedColumn<String?>(
+      'token_to_buy_id', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _tokenToSpendIdMeta =
       const VerificationMeta('tokenToSpendId');
   @override
-  late final GeneratedTextColumn tokenToSpendId = _constructTokenToSpendId();
-  GeneratedTextColumn _constructTokenToSpendId() {
-    return GeneratedTextColumn(
-      'token_to_spend_id',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> tokenToSpendId = GeneratedColumn<String?>(
+      'token_to_spend_id', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _amountToSpendMeta =
       const VerificationMeta('amountToSpend');
   @override
-  late final GeneratedRealColumn amountToSpend = _constructAmountToSpend();
-  GeneratedRealColumn _constructAmountToSpend() {
-    return GeneratedRealColumn(
-      'amount_to_spend',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<double?> amountToSpend = GeneratedColumn<double?>(
+      'amount_to_spend', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _amountReceivedMeta =
       const VerificationMeta('amountReceived');
   @override
-  late final GeneratedRealColumn amountReceived = _constructAmountReceived();
-  GeneratedRealColumn _constructAmountReceived() {
-    return GeneratedRealColumn(
-      'amount_received',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<double?> amountReceived = GeneratedColumn<double?>(
+      'amount_received', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _slippageMeta = const VerificationMeta('slippage');
   @override
-  late final GeneratedRealColumn slippage = _constructSlippage();
-  GeneratedRealColumn _constructSlippage() {
-    return GeneratedRealColumn(
-      'slippage',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<double?> slippage = GeneratedColumn<double?>(
+      'slippage', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _gasMeta = const VerificationMeta('gas');
   @override
-  late final GeneratedRealColumn gas = _constructGas();
-  GeneratedRealColumn _constructGas() {
-    return GeneratedRealColumn(
-      'gas',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<double?> gas = GeneratedColumn<double?>(
+      'gas', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _amountSpentMeta =
       const VerificationMeta('amountSpent');
   @override
-  late final GeneratedRealColumn amountSpent = _constructAmountSpent();
-  GeneratedRealColumn _constructAmountSpent() {
-    return GeneratedRealColumn(
-      'amount_spent',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<double?> amountSpent = GeneratedColumn<double?>(
+      'amount_spent', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _dcaBuyTriggerMeta =
       const VerificationMeta('dcaBuyTrigger');
   @override
-  late final GeneratedRealColumn dcaBuyTrigger = _constructDcaBuyTrigger();
-  GeneratedRealColumn _constructDcaBuyTrigger() {
-    return GeneratedRealColumn(
-      'dca_buy_trigger',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<double?> dcaBuyTrigger = GeneratedColumn<double?>(
+      'dca_buy_trigger', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _dcaBuyTargetsMeta =
       const VerificationMeta('dcaBuyTargets');
   @override
-  late final GeneratedBoolColumn dcaBuyTargets = _constructDcaBuyTargets();
-  GeneratedBoolColumn _constructDcaBuyTargets() {
-    return GeneratedBoolColumn(
-      'dca_buy_targets',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<bool?> dcaBuyTargets = GeneratedColumn<bool?>(
+      'dca_buy_targets', aliasedName, false,
+      type: const BoolType(),
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (dca_buy_targets IN (0, 1))');
   final VerificationMeta _datesBoughtMeta =
       const VerificationMeta('datesBought');
   @override
-  late final GeneratedTextColumn datesBought = _constructDatesBought();
-  GeneratedTextColumn _constructDatesBought() {
-    return GeneratedTextColumn(
-      'dates_bought',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> datesBought = GeneratedColumn<String?>(
+      'dates_bought', aliasedName, true,
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _amountSoldMeta = const VerificationMeta('amountSold');
   @override
-  late final GeneratedRealColumn amountSold = _constructAmountSold();
-  GeneratedRealColumn _constructAmountSold() {
-    return GeneratedRealColumn(
-      'amount_sold',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<double?> amountSold = GeneratedColumn<double?>(
+      'amount_sold', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _dcaSellTriggerMeta =
       const VerificationMeta('dcaSellTrigger');
   @override
-  late final GeneratedRealColumn dcaSellTrigger = _constructDcaSellTrigger();
-  GeneratedRealColumn _constructDcaSellTrigger() {
-    return GeneratedRealColumn(
-      'dca_sell_trigger',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<double?> dcaSellTrigger = GeneratedColumn<double?>(
+      'dca_sell_trigger', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _dcaSellTargetsMeta =
       const VerificationMeta('dcaSellTargets');
   @override
-  late final GeneratedBoolColumn dcaSellTargets = _constructDcaSellTargets();
-  GeneratedBoolColumn _constructDcaSellTargets() {
-    return GeneratedBoolColumn(
-      'dca_sell_targets',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<bool?> dcaSellTargets = GeneratedColumn<bool?>(
+      'dca_sell_targets', aliasedName, false,
+      type: const BoolType(),
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (dca_sell_targets IN (0, 1))');
   final VerificationMeta _datesSoldMeta = const VerificationMeta('datesSold');
   @override
-  late final GeneratedTextColumn datesSold = _constructDatesSold();
-  GeneratedTextColumn _constructDatesSold() {
-    return GeneratedTextColumn(
-      'dates_sold',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<String?> datesSold = GeneratedColumn<String?>(
+      'dates_sold', aliasedName, true,
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _autoTransacMeta =
       const VerificationMeta('autoTransac');
   @override
-  late final GeneratedBoolColumn autoTransac = _constructAutoTransac();
-  GeneratedBoolColumn _constructAutoTransac() {
-    return GeneratedBoolColumn(
-      'auto_transac',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<bool?> autoTransac = GeneratedColumn<bool?>(
+      'auto_transac', aliasedName, false,
+      type: const BoolType(),
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (auto_transac IN (0, 1))');
   final VerificationMeta _snipeStatusIdMeta =
       const VerificationMeta('snipeStatusId');
   @override
-  late final GeneratedIntColumn snipeStatusId = _constructSnipeStatusId();
-  GeneratedIntColumn _constructSnipeStatusId() {
-    return GeneratedIntColumn(
-      'snipe_status_id',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<int?> snipeStatusId = GeneratedColumn<int?>(
+      'snipe_status_id', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -1399,11 +1253,9 @@ class $SnipeModelTable extends SnipeModel
         snipeStatusId
       ];
   @override
-  $SnipeModelTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'snipe_model';
   @override
-  String get $tableName => _alias ?? 'snipe_model';
-  @override
-  final String actualTableName = 'snipe_model';
+  String get actualTableName => 'snipe_model';
   @override
   VerificationContext validateIntegrity(Insertable<Snipe> instance,
       {bool isInserting = false}) {
@@ -1537,13 +1389,13 @@ class $SnipeModelTable extends SnipeModel
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Snipe map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Snipe.fromData(data, _db,
+    return Snipe.fromData(data, attachedDatabase,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
   $SnipeModelTable createAlias(String alias) {
-    return $SnipeModelTable(_db, alias);
+    return $SnipeModelTable(attachedDatabase, alias);
   }
 }
 

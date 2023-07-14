@@ -26,13 +26,8 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return Column(
         children: <Widget>[
-          TimelyAppbar(
-            appThemeProvider: this.widget.appThemeProvider,
-            onActionButtonPressed: (){
-            },
-            actionButtonIconData: Icons.search,
-            actionButtonShowCaseElement: ShowCaseElement.HOME_QUICKSTART_LAUNCHER_BUTTON,
-            appbarContent: <Widget>[
+          Column(
+            children: <Widget>[
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(top: 16.0, left: 8.0),
@@ -68,8 +63,8 @@ class _ContactPageState extends State<ContactPage> {
             ],
           ),
           ContactUs(
-            //cardColor: this.widget.timelyThemeProvider.currentTheme.neumorphicBackgroundColor,
-            //textColor: this.widget.timelyThemeProvider.currentTheme.regularTextColor,
+            cardColor: this.widget.appThemeProvider.currentTheme.neumorphicBackgroundColor,
+            textColor: this.widget.appThemeProvider.currentTheme.regularTextColor,
             companyColor: this.widget.appThemeProvider.currentTheme.regularTextColor,
             taglineColor: this.widget.appThemeProvider.currentTheme.regularTextColor,
             logo: AssetImage("assets/timely_logo_gradient.png"),

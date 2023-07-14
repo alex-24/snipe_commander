@@ -41,7 +41,7 @@ dependencies:
   circular_reveal_animation: ^1.1.5
   jiffy: ^3.0.1
   moor_flutter: ^4.0.0
-  sqlite3_flutter_libs: ^0.2.0
+  sqlite3_flutter_libs: ^0.5.15
   path_provider: ^1.6.11
   path: ^1.6.4
   swipedetector: ^1.2.0
@@ -51,8 +51,8 @@ dependencies:
   carousel_slider: ^2.3.1
   draggable_scrollbar: ^0.0.4
   contactus: ^1.1.7
-  feedback: ^0.3.0
-  image_gallery_saver: ^1.5.0
+  #feedback: ^0.3.0
+  #image_gallery_saver: ^1.5.0
   flutter_mailer: ^1.0.0
   shared_preferences: ^0.5.12
   showcaseview: ^0.1.0

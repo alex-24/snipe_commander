@@ -489,15 +489,8 @@ class _SnipeFormState extends State<SnipeForm> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Showcase(
-                key: ShowCaseUtils().getGlobalKey(ShowCaseElement
-                    .ADD_ARTICLE_CONFIRMATION_BUTTON),
-                title: ShowCaseElement
-                    .ADD_ARTICLE_CONFIRMATION_BUTTON.title,
-                description: ShowCaseElement
-                    .ADD_ARTICLE_CONFIRMATION_BUTTON.subtitle,
-                showArrow: true,
-                contentPadding: EdgeInsets.all(8.0),
+              Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Container(
                   height: 50.0,
                   width: 100.0,

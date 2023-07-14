@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
@@ -31,15 +30,16 @@ void main() async {
   final AppThemeProvider appThemeProvider = AppThemeProvider(preferences);
 
   runApp(
-    NeumorphicTheme(
+    NeumorphicApp(
       themeMode: ThemeMode.light,
       theme: NeumorphicThemeData(
-        baseColor: Color(0xffd8d8d8),
-        lightSource: LightSource.topLeft,
-        depth: 2,
-        intensity: 1.0,
-        shadowLightColor: Colors.transparent,
-        shadowLightColorEmboss: Colors.transparent,
+          baseColor: Color(0xffd8d8d8),
+          lightSource: LightSource.topLeft,
+          depth: 2,
+          intensity: 1.0,
+          shadowLightColor: Colors.transparent,
+          shadowLightColorEmboss: Colors.transparent,
+          textTheme: Typography.blackCupertino,
       ),
       darkTheme: NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),
@@ -49,52 +49,16 @@ void main() async {
         shadowLightColor: Colors.transparent,
         shadowLightColorEmboss: Colors.transparent,
       ),
-      child: BetterFeedback(
-        onFeedback: (BuildContext context, String feedback,
-            feedbackScreenshot) async {
-          String dir = (await getExternalStorageDirectory()).absolute.path;
-          String fullPath = '$dir/feedback.png';
-          File file = File(fullPath);
-          await file.writeAsBytes(feedbackScreenshot);
-
-          final MailOptions mailOptions = MailOptions(
-            body: feedback,
-            subject: "[SNIPE COMMANDER] App Feedback",
-            recipients: ["alexiscassion24@yahoo.fr"],
-            isHTML: true,
-            bccRecipients: ["alexiscassion24@gmail.com"],
-            attachments: [file.path],
-          );
-
-          final MailerResponse response = await FlutterMailer.send(mailOptions);
-          /*switch (response) {
-            case MailerResponse.saved: /// ios only
-              platformResponse = 'mail was saved to draft';
-              break;
-            case MailerResponse.sent: /// ios only
-              platformResponse = 'mail was sent';
-              break;
-            case MailerResponse.cancelled: /// ios only
-              platformResponse = 'mail was cancelled';
-              break;
-            case MailerResponse.android:
-              platformResponse = 'intent was successful';
-              break;
-            default:
-              platformResponse = 'unknown';
-              break;
-          }*/
-
-          BetterFeedback.of(context).hide();
-        },
-        child: Stack(
-          children: <Widget>[
-            SplashScreen(
+      home: Stack(
+        children: <Widget>[
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: SplashScreen(
               seconds: 2,
               navigateAfterSeconds: App(
                 appThemeProvider: appThemeProvider,
               ),
-              title: Text(""),
+              title: Text("Snipe Commander"),
               image: Image.asset('assets/timely_logo_gradient2.png'),
               backgroundColor: appThemeProvider.currentTheme.neumorphicBackgroundColor,
               //styleTextUnderTheLoader: new TextStyle(),
@@ -111,34 +75,34 @@ void main() async {
               useLoader: false,
               //loaderColor: timelyThemeProvider.currentTheme.highlightColor
             ),
-            Shimmer.fromColors(
-              //baseColor: timelyThemeProvider.currentTheme.highlightColor,
-              //baseColor: timelyThemeProvider.currentTheme.invert.neumorphicBackgroundColor,
-              baseColor:
-              appThemeProvider.currentTheme.neumorphicBackgroundColor,
-              //baseColor: Colors.blueAccent,
-              //highlightColor: TimelyTheme.Dark.regularTextColor,
-              highlightColor: appThemeProvider.currentTheme.regularTextColor,
-              //highlightColor: timelyThemeProvider.currentTheme.highlightColor,
-              period: Duration(seconds: 2),
-              child: Center(
-                child: Text(
-                  "Welcome back",
-                  //"Timely".toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold,
-                    //color: timelyThemeProvider.currentTheme.regularTextColor,
-                    decoration: TextDecoration.none,
-                    //fontFamily: "woodhouse",
-                    //fontFamily: "woodpecker_2",
-                    fontFamily: "Roboto",
-                  ),
+          ),
+          Shimmer.fromColors(
+            //baseColor: timelyThemeProvider.currentTheme.highlightColor,
+            //baseColor: timelyThemeProvider.currentTheme.invert.neumorphicBackgroundColor,
+            baseColor:
+            appThemeProvider.currentTheme.neumorphicBackgroundColor,
+            //baseColor: Colors.blueAccent,
+            //highlightColor: TimelyTheme.Dark.regularTextColor,
+            highlightColor: appThemeProvider.currentTheme.regularTextColor,
+            //highlightColor: timelyThemeProvider.currentTheme.highlightColor,
+            period: Duration(seconds: 2),
+            child: Center(
+              child: Text(
+                "Welcome back",
+                //"Timely".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
+                  //color: timelyThemeProvider.currentTheme.regularTextColor,
+                  decoration: TextDecoration.none,
+                  //fontFamily: "woodhouse",
+                  //fontFamily: "woodpecker_2",
+                  fontFamily: "Roboto",
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ),
   );
@@ -308,13 +272,13 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

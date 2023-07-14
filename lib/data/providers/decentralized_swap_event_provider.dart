@@ -8,6 +8,8 @@ import 'package:snipe_commander/data/providers/snipe_battlefield_info_provider.d
 import 'package:snipe_commander/utils/utils.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../../app/app.dart';
+
 class SnipeCommander extends ChangeNotifier {
   late Client httpClient;
   late Web3Client web3Client;
@@ -49,9 +51,9 @@ class SnipeCommander extends ChangeNotifier {
         String token2 = sanitizeTokenAddress(event.topics![2]);
 
         bool isNewTokenToken1 = (token1 !=
-                SnipeBattlefieldInfoProvider.SWAP_DAPP.CURRENCY_1 &&
+                SnipeBattlefieldInfoProvider.SWAP_DAPP.CURRENCY_1.address &&
             token1 !=
-                SnipeBattlefieldInfoProvider.SWAP_DAPP.CURRENCY_2);
+                SnipeBattlefieldInfoProvider.SWAP_DAPP.CURRENCY_2.address);
 
         String tokenToSpendAddress = (isNewTokenToken1)? token2 : token1;
         String tokenToBuyAddress = (isNewTokenToken1)? token1 : token2;
