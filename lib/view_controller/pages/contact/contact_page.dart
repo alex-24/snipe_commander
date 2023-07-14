@@ -38,9 +38,9 @@ class _ContactPageState extends State<ContactPage> {
                       Text(
                         "Contact us",
                         style: TextStyle(
-                            color: (Provider.of<AppThemeProvider>(
+                            color: Provider.of<AppThemeProvider>(
                                 context)
-                                .currentTheme as AppTheme)
+                                .currentTheme
                                 .regularTextColor,
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold),
