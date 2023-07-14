@@ -49,7 +49,7 @@ class AppDatabase extends _$AppDatabase {
 
       final File file = File(dbLocation);
       //print(file.readAsStringSync());
-      File bck = await file.copy('/storage/emulated/0/Download/timely.sqlite');
+      File bck = await file.copy('/storage/emulated/0/Download/sc_db_backup.sqlite');
       print("Backup");
     }
   }
@@ -58,11 +58,11 @@ class AppDatabase extends _$AppDatabase {
     if (await Permission.storage.request().isGranted) {
       final dbFolder = (await getApplicationDocumentsDirectory()).path;
       final dbLocation = p.join(dbFolder, 'db.sqlite');
-      final File bck = File('/storage/emulated/0/Download/timely.sqlite');
+      final File bck = File('/storage/emulated/0/Download/sc_db_backup.sqlite');
 
       AppDatabase._singleton.close();
       await bck.copy(dbLocation);
-      File("/storage/emulated/0/Download/timely.sqlite").delete();
+      File("/storage/emulated/0/Download/sc_db_backup.sqlite").delete();
       AppDatabase._singleton = AppDatabase._internal();
     }
   }
