@@ -11,7 +11,6 @@ import 'package:snipe_commander/data/providers/app_theme_provider.dart';
 import 'package:snipe_commander/data/providers/decentralized_swap_event_provider.dart';
 import 'package:snipe_commander/data/providers/snipe_battlefield_info_provider.dart';
 import 'package:snipe_commander/utils/utils.dart';
-import 'package:snipe_commander/view_controller/decoration/showcase.dart';
 import 'package:snipe_commander/view_controller/decoration/theme.dart';
 import 'package:tinycolor/tinycolor.dart';
 

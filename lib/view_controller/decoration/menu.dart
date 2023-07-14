@@ -8,7 +8,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:showcaseview/showcase.dart';
 import 'package:snipe_commander/data/providers/app_theme_provider.dart';
-import 'showcase.dart';
 import 'theme.dart';
 import 'package:snipe_commander/utils/utils.dart';
 import 'package:snipe_commander/view_controller/pages/contact/contact_page.dart';
